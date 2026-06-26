@@ -1,10 +1,9 @@
-# Ganti dari alpine-xfce ke ubuntu-xfce yang dijamin stabil
-FROM lscr.io/linuxserver/webtop:ubuntu-xfce
+FROM lscr.io/linuxserver/kasmvnc:latest
 
-# Setup zona waktu dan perizinan user
+# Setting biar jalan tanpa masalah perizinan
 ENV PUID=1000
 ENV PGID=1000
 ENV TZ=Asia/Jakarta
 
-# Buka port 3000 (Port wajib Webtop) biar Railway bisa bikin link webnya
+# Buka port 3000
 EXPOSE 3000
