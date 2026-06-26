@@ -1,5 +1,5 @@
-# Kita pakai Alpine XFCE biar super ringan buat RAM server
-FROM lscr.io/linuxserver/webtop:alpine-xfce
+# Ganti dari alpine-xfce ke ubuntu-xfce yang dijamin stabil
+FROM lscr.io/linuxserver/webtop:ubuntu-xfce
 
 # Setup zona waktu dan perizinan user
 ENV PUID=1000
