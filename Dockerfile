@@ -1,23 +1,10 @@
-FROM node:18-slim
+# Kita pakai Alpine XFCE biar super ringan buat RAM server
+FROM lscr.io/linuxserver/webtop:alpine-xfce
 
-# Install Google Chrome asli dan semua driver grafis (X11) yang dibutuhin Puppeteer
-RUN apt-get update \
-    && apt-get install -y wget gnupg \
-    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/googlechrome-linux-keyring.gpg \
-    && sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/googlechrome-linux-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-    && apt-get update \
-    && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
-      --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+# Setup zona waktu dan perizinan user
+ENV PUID=1000
+ENV PGID=1000
+ENV TZ=Asia/Jakarta
 
-WORKDIR /app
-
-# Install dependencies Node.js
-COPY package*.json ./
-RUN npm install
-
-# Copy sisa file kode lu (termasuk cookies.json)
-COPY . .
-
-# Eksekusi bot
-CMD ["node", "index.js"]
+# Buka port 3000 (Port wajib Webtop) biar Railway bisa bikin link webnya
+EXPOSE 3000
